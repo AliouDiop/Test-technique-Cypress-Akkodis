@@ -15,7 +15,7 @@ describe('création compte', () => {
 
     var url = "https://magento.softwaretestingboard.com/";
 
-    function conexion(login, password) {
+    function connexion(login, password) {
         cy.get('#email').type(login);
         cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .password > .control > #pass').type(password);
         cy.get("#button-login").click();
@@ -29,26 +29,37 @@ describe('création compte', () => {
         cy.visit(url);
     });
 
-    it.skip("Vérifier les informations liées au la robustesse du mot de passe", () => {
-        //conexion("super.admin@yopmail.com", "P@sser123");
-        cy.get('.panel > .header > :nth-child(3) > a').click();
-    });
 
-    it("Création du compte", () => {
+    it("Création du compte et Vérifier les informations liées au la robustesse du mot de passe", () => {
         //Cliquer sur le bouton Create an Account
         cy.get('.panel > .header > :nth-child(3) > a').click();
 
+        const nom = "Nomtest";
+        const prenom = "ADtest";
+        const email = prenom+nom+"@yopmail.com";
+        const password = '"yutiiyti"';
+        const password2 = "yutiiyti@DDDD";
+
         //Personal Information
-        cy.get('#firstname').type("fgfhghff"); //first name
-        cy.get('#lastname').type("yutiiyti"); //last named
+        cy.get('#firstname').type(prenom); //first name
+        cy.get('#lastname').type(nom); //last named
 
         //Sign-in Information
-        cy.get('#email_address').type("fgfhghff"); //email
-        cy.get('#password').type("yutiiyti"); //password
-        cy.get('#password-confirmation').type("yutiiyti"); //confirm password
+        cy.get('#email_address').type(email ); //email
+        cy.get('#password').type(password); //password
+        cy.get('#password-confirmation').type(password); //confirm password
+
+        //il ya erreur on modifie le mot de passe
+        if (cy.get('#password-error').should('exist')) {
+            cy.get('#password').type(password2); //password
+            cy.get('#password-confirmation').type(password2); //confirm password
+        }
 
         //cliquer bouton enregistrer
-        cy.get('#form-validate > .actions-toolbar > div.primary > .action > span').click();
+        cy.get('#form-validate > .actions-toolbar > div.primary > .action').click();
+
+        //Verifier le message de succes
+        cy.get('.message-success').should('exist').contains("Thank you for registering with Main Website Store.");
 
 
     });

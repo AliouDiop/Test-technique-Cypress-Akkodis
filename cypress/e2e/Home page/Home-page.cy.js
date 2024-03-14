@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+
 // Welcome to Cypress!
 //
 // This spec file contains a variety of sample tests
@@ -11,14 +12,17 @@
 // please read our getting started guide:
 // https://on.cypress.io/introduction-to-cypress
 
-describe('création compte', () => {
+describe('home page', () => {
 
     var url = "https://magento.softwaretestingboard.com/";
+    var email = "ADtest"+"Nomtest"+"@yopmail.com";
+    var password2 = "yutiiyti@DDDD";
 
-    function conexion(login, password) {
+
+    function login(login, password) {
         cy.get('#email').type(login);
         cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .password > .control > #pass').type(password);
-        cy.get("#button-login").click();
+        cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .actions-toolbar > div.primary > #send2').click();
     }
 
     beforeEach(() => {
@@ -31,11 +35,14 @@ describe('création compte', () => {
 
 
     it("Home page", () => {
+
+
         //Présence du logo et du titre du site "LUMA"
         cy.get('.logo > img').should('exist');
 
         //Cliquer sur le bouton de se loguer
         //cy.get('.panel > .header > .authorization-link > a').click();
+        //login(email,password2);
 
         //Cliquer sur le bouton Create an Account pour creer compte
         //cy.get('.panel > .header > :nth-child(3) > a').click();
@@ -50,11 +57,8 @@ describe('création compte', () => {
                 cy.log(item.textContent);
             });
 
-            //Sélection par texte de l'élément 
-            //cy.get('#ui-id-2').contains("What's New").click();
-
             //Sélection par index de l'élément :
-            // Sélectionner l'élément de menu spécifique (par exemple, le deuxième élément)
+            // Sélectionner l'élément de menu spécifique 
             const choice = cy.get('#ui-id-2 li').eq(1); // Remplacez "1" par l'index de l'élément de menu que vous souhaitez sélectionner
 
             choice.click(); // Cliquer sur l'élément de menu pour le sélectionner
@@ -77,9 +81,6 @@ describe('création compte', () => {
 
         });
 
-
-        //cy.get('footer').contains('Contact').should('exist'); // Vérifie que le texte 'Contact' est présent dans le footer
-        //cy.get('footer a[href="/contact"]').should('exist'); // Vérifie qu'il y a un lien vers '/contact' dans le footer
     });
 
 })
