@@ -15,13 +15,13 @@ describe('Catalogue + tunel achat', () => {
 
     var url = "https://magento.softwaretestingboard.com/";
 
-    function connexion(login, password) {
+    function login(login, password) {
         cy.get('#email').type(login);
         cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .password > .control > #pass').type(password);
-        cy.get("#button-login").click();
+        cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .actions-toolbar > div.primary > #send2').click();
     }
 
-    function paiement() {
+    function passercommande() {
         //Cliquer sur licone panier 
         cy.wait(5000);
         cy.get('.showcart').click();
@@ -30,10 +30,16 @@ describe('Catalogue + tunel achat', () => {
         cy.get('#top-cart-btn-checkout').click();
     }
 
-    function passercommande() {
+    function paiement() {
         cy.wait(5000);
         cy.get('#customer-email-fieldset > .required > .control > #customer-email').type("fgfhghff@gmail.com");
-        //cy.get('#T1Q779E').type("fgfhghff");
+
+        //cy.get('#WLSO9IB').type("fgfhghff");
+        //les elements selectionnes changent dun moment a lautre ce qui fait qui est difficile de definir des champs
+    }
+
+    function logout() {
+
     }
 
     beforeEach(() => {
@@ -82,37 +88,12 @@ describe('Catalogue + tunel achat', () => {
             //Click sur le bouton add card
             cy.get('#product-addtocart-button').click();
 
+            passercommande();
+            
             paiement();
 
-            passercommande();
+        
 
-            cy.get('.product-item-details').click();
-            /*choice.then(menu => {
-                // Parcourt des categories de produits
-                const items = menu.find('column');
-
-                // Afficher le texte de chaque élément du menu dans la console
-                items.each((index, item) => {
-                    cy.log(item.textContent);
-                });
-
-                const choice = cy.get('.column').eq(1); // Remplacez "1" par l'index de l'élément de menu que vous souhaitez sélectionner
-
-                choice2.then(menu => {
-                    // Parcourt des categories de produits
-                    const items = menu.find('li');
-
-                    // Afficher le texte de chaque élément du menu dans la console
-                    items.each((index, item) => {
-                        cy.log(item.textContent);
-                    });
-
-                    
-
-                });
-                
-
-            });*/
 
 
         });

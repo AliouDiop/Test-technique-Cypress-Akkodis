@@ -15,10 +15,10 @@ describe('création compte', () => {
 
     var url = "https://magento.softwaretestingboard.com/";
 
-    function connexion(login, password) {
+    function login(login, password) {
         cy.get('#email').type(login);
         cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .password > .control > #pass').type(password);
-        cy.get("#button-login").click();
+        cy.get('.login-container > .block-customer-login > .block-content > #login-form > .fieldset > .actions-toolbar > div.primary > #send2').click();
     }
 
     beforeEach(() => {
@@ -34,8 +34,8 @@ describe('création compte', () => {
         //Cliquer sur le bouton Create an Account
         cy.get('.panel > .header > :nth-child(3) > a').click();
 
-        const nom = "Nomtest";
-        const prenom = "ADtest";
+        const nom = "Nomtest2";
+        const prenom = "ADtest2";
         const email = prenom+nom+"@yopmail.com";
         const password = '"yutiiyti"';
         const password2 = "yutiiyti@DDDD";
